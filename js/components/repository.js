@@ -7,16 +7,22 @@ var StarRater = require('./star-rater');
 var actions = require('../actions/index');
 
 var Repository = React.createClass({
+    componentDidMount: function() {
+        this.props.dispatch(
+            actions.fetchDescription(this.props.repository.name)
+        );
+    },
     changeRating: function(rating) {
-        // TODO: Change the rating
+        console.log(this.props);
         this.props.dispatch(
             actions.rateRepository(this.props.repository.name, rating)
         );
     },
     render: function() {
+        console.log(this.props);
         return (
             <div className="repository">
-                {this.props.repository.name}
+                {this.props.repository.name} - {this.props.repository.description}
                 &nbsp;
                 <StarRater rating={this.props.repository.rating}
                            onChange={this.changeRating} />
